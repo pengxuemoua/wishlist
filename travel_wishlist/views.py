@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Place
 from .forms import NewPlaceForm
 
-# Create your views here.
-
 
 def place_list(request):
 
@@ -15,12 +13,16 @@ def place_list(request):
             place.save() # saves place to db
             return redirect('place_list') # reloads home place
 
+    # if no post is made, display unvisited places according to name
     places = Place.objects.filter(visited=False).order_by('name')
     new_placce = NewPlaceForm()
+    #render to wishlist.html and send data for display
     return render(request, 'travel_wishlist/wishlist.html', {'places': places, 'new_place_form': new_placce})
 
 def places_visited(request):
+    # display places that are visited according to name
     visited = Place.objects.filter(visited=True).order_by('name')
+    #render to visited.html and send data for display
     return render(request, 'travel_wishlist/visited.html', {'visited': visited})
 
 def place_was_visited(request, place_pk):
@@ -31,12 +33,13 @@ def place_was_visited(request, place_pk):
         place.visited = True # checks that visited is checked
         place.save() # save changes to the database
     
-    return redirect('place_list')
+    return redirect('place_list') #redirect to place_list to refresh page
 
 
 def about(request):
     author = 'Pengxue'
     about = 'A website to create a list of places to visit'
+    #render about.html and send data for display
     return render(request, 'travel_wishlist/about.html', {'author': author, 'about': about})
 
 

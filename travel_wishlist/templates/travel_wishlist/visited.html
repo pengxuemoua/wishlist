@@ -1,5 +1,11 @@
+<!-- inhert template from base.html -->
+{% extends 'travel_wishlist/base.html' %}
+
+{% block content %}
+
 <h2>Places you have visited</h2>
 
+<!-- loop through and display a place or any places visited if there are any -->
 {% if visited %}
 
 <ul>
@@ -10,10 +16,11 @@
     {% endfor %}
 </ul>
 
+<!-- If there are no place(s) visited, display p tag -->
 {% else %}
 
 <p>You have not visited any places yet</p>
 
 {% endif %}
 
-<a href="{% url 'place_list' %}">Your wishlist</a>
+{% endblock %}

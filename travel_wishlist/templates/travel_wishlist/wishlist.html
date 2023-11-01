@@ -1,3 +1,8 @@
+<!-- inhert template from base.html -->
+{% extends 'travel_wishlist/base.html' %}
+
+{% block content %}
+
 <h2>Travel Wishlist</h2>
 
 
@@ -6,25 +11,27 @@
     {% csrf_token %}
 
     {{ new_place_form }}
-    <button type="submit">Add</button>
+    <button id="add-new-place" type="submit">Add</button>
 </form>
 
+<!-- if there are any place(s), loop through and display them -->
 {% for place in places %}
 
-<div>
-    {{  place.name  }}
+<div class="wishlist-place">
+    <span id="place-name-{{ place.pk }}" class="place-name">{{  place.name  }}</span>
 
-    <form method="POST" action="{% url 'place_was_visited' place.pk %}">
+    <form class="visited-form" method="POST" action="{% url 'place_was_visited' place.pk %}">
         {% csrf_token %}
-        <button type="submit">Visited!</button>
+        <button id="visited-button-{{ place.pk }}" type="submit">Visited!</button>
     </form>    
 
 </div>
 
+<!-- if these are no place(s), then p tag will be display-->
 {% empty %}
 
 <p>You have no places in your wishlist.</p>
 
 {% endfor %}
 
-<a href="{% url 'places_visited' %}">Places you've visited</a>
+{% endblock %}
