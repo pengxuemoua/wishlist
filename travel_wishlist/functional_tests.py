@@ -49,4 +49,3 @@ class AddPlacesTest(LiveServerTestCase):
         self.assertIn('Denver', self.selenium.page_source) # checks if "Denver" is in the page
         self.assertIn('New York', self.selenium.page_source)
         self.assertIn('Tokyo', self.selenium.page_source)
-

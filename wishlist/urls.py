@@ -21,3 +21,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('travel_wishlist.urls'))
 ]
+
+# route static file
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG: # check if development server is in use
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # modify urlpattern by adding on static routes which points to path in local computer in settings.py
+
